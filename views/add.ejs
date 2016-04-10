@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+     <form enctype="multipart/form-data" method="post"  action="/add">
+    <div>
+        标题：<input type="text" id="title" name="title" />
+    </div>
+    <div>
+        图片：<input type="file" id="pic" name="pic" />
+    </div>
+    <div>
+        内容：<textarea id="content" name="content"></textarea>
+    </div>
+    <div>
+        <input  type="submit" id="ok" value="添加新闻" />
+    </div>
+    </form>
+  </body>
+</html>

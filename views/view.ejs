@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <h1>
+        <%= title %></h1>
+    <ul>
+        <%for(var k in data) { %>
+        <li>
+            <div>
+               标题： <%=data[k].title %></div>
+            <div>
+              内容：  <%=data[k].content%></div>
+              <div>
+              附件：<img src="images/<%= data[k].pic%>" /></div>
+              </div>
+              <div>
+              <a href="/delete?id=<%=data[k] %>">删除</a>
+              </div>
+              <hr/>
+        </li>
+        <%} %>
+    </ul>
+</body>
+</html>
