@@ -68,3 +68,25 @@ News.prototype.get = function(callback) {
 
 	})
 }
+
+News.prototype.remove = function(id, callback) {
+	mongodb.open(function(err,db) {
+		if (err) {
+			mongodb.close();
+			return callback(err);
+		};
+		db.collection('news', function(err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			};
+			collection.remove({_id: id},function(err) {
+				if (err) {
+					mongodb.close();
+					return callback(err);
+				};
+				callback(null);
+			})
+		})
+	})
+}

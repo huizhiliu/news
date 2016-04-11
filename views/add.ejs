@@ -7,7 +7,6 @@
   </head>
   <body>
     <h1><%= title %></h1>
-     <form enctype="multipart/form-data" method="post"  action="/add">
     <div>
         标题：<input type="text" id="title" name="title" />
     </div>
@@ -20,6 +19,19 @@
     <div>
         <input  type="submit" id="ok" value="添加新闻" />
     </div>
-    </form>
+    <script>
+
+    $('document').ready(function(){
+      $('#ok').click(function(){
+        var data = {};
+        data.content = $('#content').val();
+        data.title = $('#title').val();
+        $.post('/add', data, function() {
+          console.log('添加成功');
+        })
+
+      })
+    })
+    </script>
   </body>
 </html>

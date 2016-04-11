@@ -12,29 +12,27 @@ router.get('/add', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-	var pic = null;
-	for (var i in req.files) {
-	    if (req.files[i] == 0) {
-	      fs.unlinkSync(req.files[i].path);
-	      console.log('success removed an empty file');
-	    } else {
-	      var path = './public/images/' + req.files[i].name;
-	      fs.renameSync(req.files[i].path, path);
-	      console.log('sunccess renamed a file');
-	    }
-	    pic = req.files[i].name;
-    }
-	var title = req.body.title;
-	var content = req.body.content;
-	var news = new News(title, content, pic);
-	news.save(function(err, data){
-		res.send(data)
-	})
+	  var title = req.body.title;
+	  var content = req.body.content;
+	  var pic = req.body.pic;
+	  var news = new News(title, content, pic)
+	  console.log(title,content);
+	  news.save(function (err, data) {
+	    res.send(data);
+	  })
 	res.send('<a href="./">请求成功，返回首页</a>')
 })
 
-router.get('/delete', function(req, res, next) {
-	res.send('delete')
+router.get('/delete/:id', function(req, res, next) {
+	var news = new News();
+	news.remove(req.param.id,function(err, user) {
+		if (err) {
+			console.log(err);
+			return res.redirect('back');
+		};
+		console.log('success');
+		res.redirect('/');
+	});
 });
 
 router.get('/view', function(req, res, next) {
@@ -45,12 +43,10 @@ router.get('/view', function(req, res, next) {
 		};
 		res.render('view', { title:'viewNews', data: user});
 	});
-
-	// res.render('view', { title:'viewNews'})
 });
 
 router.get('/update', function(req, res, next) {
-	res.send('update')
+	
 });
 
 module.exports = router;
