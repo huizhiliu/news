@@ -3,7 +3,6 @@ var mongodb = require('./db');
 function News(title, content, pic) {
 	this.title = title;
 	this.content = content;
-	this.pic = pic;
 }
 
 module.exports = News;
@@ -22,7 +21,6 @@ News.prototype.save = function(callback) {
     var news = {
     	title: this.title,
     	content: this.content,
-    	pic: this.pic,
     	time: time
     };
 
@@ -69,7 +67,7 @@ News.prototype.get = function(callback) {
 	})
 }
 
-News.prototype.remove = function(id, callback) {
+News.prototype.remove = function(title, callback) {
 	mongodb.open(function(err,db) {
 		if (err) {
 			mongodb.close();
@@ -80,7 +78,7 @@ News.prototype.remove = function(id, callback) {
 				mongodb.close();
 				return callback(err);
 			};
-			collection.remove({_id: id},function(err) {
+			collection.remove({title: title},function(err) {
 				if (err) {
 					mongodb.close();
 					return callback(err);

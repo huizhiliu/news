@@ -14,8 +14,7 @@ router.get('/add', function(req, res, next) {
 router.post('/add', function(req, res, next) {
 	  var title = req.body.title;
 	  var content = req.body.content;
-	  var pic = req.body.pic;
-	  var news = new News(title, content, pic)
+	  var news = new News(title, content)
 	  console.log(title,content);
 	  news.save(function (err, data) {
 	    res.send(data);
@@ -23,9 +22,9 @@ router.post('/add', function(req, res, next) {
 	res.send('<a href="./">请求成功，返回首页</a>')
 })
 
-router.get('/delete/:id', function(req, res, next) {
+router.get('/delete/:title', function(req, res, next) {
 	var news = new News();
-	news.remove(req.param.id,function(err, user) {
+	news.remove(req.params.title,function(err, user) {
 		if (err) {
 			console.log(err);
 			return res.redirect('back');
